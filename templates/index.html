@@ -3,55 +3,58 @@
 
 {% block content %}
 <section class="hero">
-    <h1>How are you feeling today?</h1>
-    <p class="subtitle">
-        A daily mental health check-in. Takes 30 seconds. Builds awareness over time.
-    </p>
+  <div class="hero-label">SDG 3 · Mental Health Tracker</div>
+  <h1>How are you feeling <span>today?</span></h1>
+  <p class="subtitle">
+    A 30-second daily check-in to track your mental wellness.
+    Honest input. Personalized insight.
+  </p>
 </section>
 
-<section class="checkin-form">
-    <form action="/checkin" method="POST">
+<div class="card">
+  <form action="/checkin" method="POST">
 
-        <div class="form-group">
-            <label for="mood_text">Describe your mood in a few words</label>
-            <textarea
-                id="mood_text"
-                name="mood_text"
-                rows="3"
-                placeholder="e.g. feeling stressed about deadlines, but hopeful..."
-                required
-            ></textarea>
-        </div>
+    <div class="form-group">
+      <label for="mood_text">Describe your mood</label>
+      <textarea
+        id="mood_text"
+        name="mood_text"
+        rows="3"
+        placeholder="e.g. feeling a bit anxious about deadlines but hopeful overall..."
+        required
+      ></textarea>
+    </div>
 
-        <div class="form-group">
-            <label for="rating">
-                Rate your well-being today
-                <span class="rating-hint" id="rating-display">5 / 10</span>
-            </label>
-            <input
-                type="range"
-                id="rating"
-                name="rating"
-                min="1"
-                max="10"
-                value="5"
-                oninput="document.getElementById('rating-display').textContent = this.value + ' / 10'"
-            />
-            <div class="rating-labels">
-                <span>1 — Very Poor</span>
-                <span>10 — Excellent</span>
-            </div>
-        </div>
+    <div class="form-group">
+      <label for="rating">
+        Well-being rating
+        <span class="rating-hint" id="rating-display">5 / 10</span>
+      </label>
+      <input
+        type="range"
+        id="rating"
+        name="rating"
+        min="1" max="10" value="5"
+        oninput="
+          document.getElementById('rating-display').textContent = this.value + ' / 10';
+          const pct = (this.value - 1) / 9 * 100;
+          this.style.background = 'linear-gradient(to right, var(--cyan) ' + pct + '%, var(--border) ' + pct + '%)';
+        "
+      />
+      <div class="rating-labels">
+        <span>1 — very poor</span>
+        <span>10 — excellent</span>
+      </div>
+    </div>
 
-        <button type="submit" class="btn-primary">Submit Check-In</button>
-    </form>
-</section>
+    <button type="submit" class="btn-primary">
+      Submit Check-In →
+    </button>
+  </form>
+</div>
 
-<section class="sdg-note">
-    <p>
-        This app supports
-        <strong>UN SDG 3: Good Health &amp; Well-being</strong> —
-        promoting mental wellness through daily self-reflection.
-    </p>
-</section>
+<div class="sdg-note">
+  <span class="sdg-badge">UN SDG 3</span>
+  <span>Promoting mental wellness through daily self-reflection and awareness.</span>
+</div>
 {% endblock %}
